@@ -15,7 +15,7 @@ router.post("/", function (req, res, next) {
   console.log(count);
   var spawn = require("child_process").spawn;
   var process = spawn("python3", [
-    path.join(__dirname, "../scripts/newegg.py"),
+    path.join(__dirname, "../scripts/neweggProductsSearch.py"),
     name,
     count,
   ]);
