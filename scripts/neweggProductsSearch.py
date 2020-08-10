@@ -9,7 +9,7 @@ import json
 import time
 from scraper_api import ScraperAPIClient
 
-isUseScraperAPI = True
+isUseScraperAPI = False
 
 
 class Unbuffered(object):

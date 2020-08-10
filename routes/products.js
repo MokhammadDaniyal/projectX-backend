@@ -36,4 +36,29 @@ router.post("/", function (req, res, next) {
   });
 });
 
+router.post("/getinfo", function (req, res, next) {
+  const link = req.body.link;
+  console.log(link);
+  var spawn = require("child_process").spawn;
+  var process = spawn("python3", [
+    path.join(__dirname, "../scripts/neweggProductInfo.py"),
+    link,
+  ]);
+  console.log("Process created");
+  allData = "";
+  process.stdout.on("readable", function () {
+    while ((data = process.stdout.read())) {
+      allData += data.toString();
+    }
+  });
+  process.stderr.on("data", (data) => {
+    console.log(`error:${data}`);
+  });
+  process.on("close", function (code) {
+    if (code == 0) {
+      res.send({ data: JSON.stringify(allData) });
+    }
+  });
+});
+
 module.exports = router;
